@@ -1,7 +1,15 @@
-import numpy
+import pandas
+from sklearn import linear_model
 
-speed = [99,86,87,88,86,103,87,94,78,77,85,86]
+df = pandas.read_csv("data.csv")
 
-x = numpy.median(speed)
+X = df[['Weight', 'Volume']]
+y = df['CO2']
 
-print(x)
+regr = linear_model.LinearRegression()
+regr.fit(X, y)
+
+# predict the CO2 emission of a car where the weight is 2300kg, and the volume is 1300cm3:
+predictedCO2 = regr.predict([[2300, 1300]])
+
+print(predictedCO2)
